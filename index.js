@@ -3,7 +3,7 @@ const cors = require('cors');
 const app = express()
 const port = process.env.PORT || 3000
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 
 app.use(cors());
@@ -11,7 +11,7 @@ app.use(express.json());
 
 // asea-turest-zones\
 // DNVfwwgLOLbQi4cj
-
+// Pa$$w0rd!
 
 
 const uri = "mongodb+srv://asea-turest-zones\:DNVfwwgLOLbQi4cj@atlascluster.aasa6jh.mongodb.net/?retryWrites=true&w=majority&appName=AtlasCluster";
@@ -27,12 +27,37 @@ const client = new MongoClient(uri, {
 
 async function run() {
     try {
+
+        const torestzonescolection = client.db('torestzonesDB').collection('torestplase');
+
+
+        app.post('/torestplase', async (req, res) => {
+            const torest = req.body;
+            const result = await torestzonescolection.insertOne(torest)
+            res.send(result)
+        })
+
+        // all get
+        app.get('/torestplase', async (req, res) => {
+            const cursor = torestzonescolection.find();
+            const result = await cursor.toArray();
+            res.send(result)
+        })
+
+        app.get('/torestplase/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await torestzonescolection.findOne(query)
+            res.send(result)
+        })
+
+
         // Connect the client to the server	(optional starting in v4.7)
         // await client.connect();
         // Send a ping to confirm a successful connection
 
-        app.post('/torestzones' , (req, res)=>{
-            
+        app.post('/torestzones', (req, res) => {
+
         })
         await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
