@@ -54,8 +54,10 @@ async function run() {
 
         app.delete('/torestplase/:id', async(req, res)=>{
             const id = req.params.id;
-            const query = {_id: new ObjectId(id)}
-            
+            const query = {_id: new ObjectId(id)};
+            const result = await torestzonescolection.deleteOne(query);
+            res.send(result)
+
         })
 
 
