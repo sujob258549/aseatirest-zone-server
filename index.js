@@ -59,6 +59,31 @@ async function run() {
             res.send(result)
 
         })
+// update
+        app.put('/torestplase/:id', async(req, res)=>{
+            const id = req.params.id;
+            const filter = {_id: new ObjectId(id)};
+            const options = { upsert: true };
+            const torestData = req.body;
+            const updateDoc = {
+                $set: {
+                  name:torestData.name,
+                  email:torestData.email,
+                  Touristsspotname:torestData.Touristsspotname,
+                  countryname:torestData.countryname,
+                  location:torestData.location,
+                  average_cost:torestData.average_cost,
+                  seasonality:torestData.seasonality,
+                  treveltime:torestData.treveltime,
+                  totavisitorsperyear:torestData.totavisitorsperyear,
+                  photourl:torestData.photourl,
+                  textArea:torestData.textArea
+                },
+              };
+
+              const result = await torestzonescolection.updateOne(filter, updateDoc, options);
+
+        })
 
 
         // Connect the client to the server	(optional starting in v4.7)
