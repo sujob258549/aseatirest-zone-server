@@ -63,6 +63,7 @@ async function run() {
         app.put('/torestplase/:id', async(req, res)=>{
             const id = req.params.id;
             const filter = {_id: new ObjectId(id)};
+            console.log(id, filter)
             const options = { upsert: true };
             const torestData = req.body;
             const updateDoc = {
