@@ -6,7 +6,12 @@ const port = process.env.PORT || 3000
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 
-app.use(cors());
+// const corsConfig = {
+//     origin: ["http://localhost:5173", "https://asea-ture-zone-10.vercel.app"],
+//     credentials: true,
+// };
+
+app.use(cors())
 app.use(express.json());
 
 // asea-turest-zones\
@@ -52,37 +57,37 @@ async function run() {
         });
 
 
-        app.delete('/torestplase/:id', async(req, res)=>{
+        app.delete('/torestplase/:id', async (req, res) => {
             const id = req.params.id;
-            const query = {_id: new ObjectId(id)};
+            const query = { _id: new ObjectId(id) };
             const result = await torestzonescolection.deleteOne(query);
             res.send(result)
 
         })
-// update
-        app.put('/torestplase/:id', async(req, res)=>{
+        // update
+        app.put('/torestplase/:id', async (req, res) => {
             const id = req.params.id;
-            const filter = {_id: new ObjectId(id)};
+            const filter = { _id: new ObjectId(id) };
             console.log(id, filter)
             const options = { upsert: true };
             const torestData = req.body;
             const updateDoc = {
                 $set: {
-                  name:torestData.name,
-                  email:torestData.email,
-                  Touristsspotname:torestData.Touristsspotname,
-                  countryname:torestData.countryname,
-                  location:torestData.location,
-                  average_cost:torestData.average_cost,
-                  seasonality:torestData.seasonality,
-                  treveltime:torestData.treveltime,
-                  totavisitorsperyear:torestData.totavisitorsperyear,
-                  photourl:torestData.photourl,
-                  textArea:torestData.textArea
+                    name: torestData.name,
+                    email: torestData.email,
+                    Touristsspotname: torestData.Touristsspotname,
+                    countryname: torestData.countryname,
+                    location: torestData.location,
+                    average_cost: torestData.average_cost,
+                    seasonality: torestData.seasonality,
+                    treveltime: torestData.treveltime,
+                    totavisitorsperyear: torestData.totavisitorsperyear,
+                    photourl: torestData.photourl,
+                    textArea: torestData.textArea
                 },
-              };
+            };
 
-              const result = await torestzonescolection.updateOne(filter, updateDoc, options);
+            const result = await torestzonescolection.updateOne(filter, updateDoc, options);
 
         })
 
