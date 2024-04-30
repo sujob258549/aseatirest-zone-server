@@ -48,7 +48,7 @@ async function run() {
             const result = await cursor.toArray();
             res.send(result)
         })
-
+// single get
         app.get('/torestplase/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
@@ -56,7 +56,7 @@ async function run() {
             res.send(result)
         });
 
-
+// delete
         app.delete('/torestplase/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
